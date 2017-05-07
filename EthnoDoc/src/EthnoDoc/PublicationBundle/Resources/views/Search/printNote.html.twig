@@ -1,0 +1,108 @@
+{% extends "EthnoDocPublicationBundle:Search:search.html.twig" %}
+
+{% block title %}EthnoDoc - {{ notice.title }}{% endblock %}
+
+
+
+{% block ariane %}
+    <div id="ariane">
+        <ol class="breadcrumb">
+            {% for key, q_selection in queryParams %}
+                <li>
+                    <a href="{{ app.request.uri|replace( {(key) : '', (q_selection) : '', (type)~'/' : '', (notice.id) : ''})|replace( { (page)~'/' : page}) }}">
+                        {{ ('facet.descriptor.name.'~key)|trans }} :
+                        {% if key == '_type' %}
+                            {{ ('facet.descriptor.description.'~q_selection)|trans }}
+                        {% else %}
+                            {{ q_selection }}
+                        {% endif %}
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                </li>
+            {% endfor %}
+                <li>
+                    <a href="{{ app.request.uri|replace( {(type)~'/' : '', (notice.id) : ''})|replace( { (page)~'/' : page}) }}">
+                        {{ 'facet.action.selection'|trans }} : {{ notice.title }}
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                </li>
+        </ol>
+    </div>
+{% endblock %}
+{% block searchResult %}
+	<div class="facet-display">
+		<h2 class="title">{{ notice.title }}</h2>
+		<div class="container-fluid">
+			<div class="col-md-6 display-value">
+				<ul class="list-unstyled">
+					{% for key, value in notice %}
+						{% if key != 'id' and key != 'title' and key != 'url' %}
+							<li>
+								{% if value is not iterable%}
+									{% if key != 'cle_reel' and key != 'keywords' and value != "" and key !='consultation' %}
+										<strong>{{ ('note.keys.'~key)|trans }} : </strong> {{ value }}
+									{% endif %}
+								{% endif %}
+							</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="content-display col-md-6 lien">
+				{#{% set testurl="http://www.raddo-ethnodoc.com/extrait/photo/1987/085_01_1987_0255.jpg" %}#}
+				{#{% set testurl="http://www.raddo-ethnodoc.com/extrait/temoignage/2014/029_04_2014_0087.mov" %}#}
+				{#{% set testurl="http://www.raddo-ethnodoc.com/extrait/chanson/1974/085_01_1974_0036.mp3" %}#}
+				{#{% set testurl="http://www.raddo-ethnodoc.com/extrait/manuscrit/2015/085_01_2015_0001.pdf" %}#}
+				{% if notice.url is defined and notice.url is not null %}
+					{% if notice.consultation == "non consultable" %}
+						{% set niveau = 0 %}
+					{% else %}
+						{% set niveau = 1 %}
+					{% endif %}
+					{% if niveau == 1 %}
+						<a href="{{ notice.url }}" alt="{{ notice.title }}">{{ 'error.direct_access'|trans }}</a>
+						<br/>
+						{% set url = notice.url|split('.')|last %}
+						{% if url == "jpg" or url == "jpeg" %}
+							<img src="{{ notice.url }}" alt="{{ notice.title }}">
+						{% elseif url == "mov"%}
+							<div class="embeddedVideo">
+								<object classid='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B'
+										codebase='http://www.apple.com/qtactivex/qtplugin.cab'>
+									<param name='src' value="{{ notice.url }}">
+									<param name='autoplay' value="false">
+									<param name='controller' value="true">
+									<param name='loop' value="false">
+
+									<embed src="{{ notice.url }}"
+										   scale="tofit" autoplay="false"
+										   controller="true" loop="false" bgcolor="#000000"
+										   pluginspage='http://www.apple.com/quicktime/download/'>
+									</embed>
+								</object>
+							</div>
+						{% elseif url == "mp3" %}
+							<audio  controls="controls">
+								<source src="{{ notice.url }}">
+								{{ 'error.browser_not_supported.audio'|trans }}
+								<a href="{{ notice.url }}" alt="{{ notice.title }}">Try this link instead</a>
+							</audio>
+						{% elseif url == "pdf" %}
+							<object width="600" height="600" data="{{ notice.url }}#view=FitH" type="application/pdf" width="100%" height="100%">
+								<p>Your browser does not support pdf preview. Try <a href="{{ notice.url }}">this link instead</a></p>
+							</object>
+						{% endif %}
+					{% else %}
+						<h1> La ressource n'est pas consultable </h1>
+					{% endif %}
+					
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block paginator %}
+{% endblock %}
+
+{% set nbResults = 1 %}

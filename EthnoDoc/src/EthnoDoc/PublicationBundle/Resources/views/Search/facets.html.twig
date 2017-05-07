@@ -1,0 +1,270 @@
+<div class="col-md-3 col-xs-4 col-lg-2" id="facetNav">
+    <h3>Affiner la recherche</h3>
+    <ul id="descriptors">
+        {% for facetName, facet in facets %}
+            <li class="list-unstyled">
+                {% if facet.buckets is not empty %}
+                    <span id="{{ facetName }}" class="facetName"><i class="glyphicon glyphicon-plus"></i>&nbsp;{{ ('facet.descriptor.name.'~facetName)|trans }}</span>
+                    <ul class="{{ facetName }}descriptors desc list-unstyled">
+                        {% for searchTerm in facet.buckets %}
+                            {% set queryString =  app.request.query.all|merge({(facetName) : searchTerm.key|replace(' ', '_')})|url_encode %}
+							{% if loop.index <= 5 %}
+								<li>
+									<a id="{{ searchTerm.key }}" search="?{{ queryString }}" element = "{{searchTerm.key}}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
+										{% if facetName == "_type" %}
+											{{ ('facet.descriptor.description.'~searchTerm.key)|trans }}
+											<span class="facetCount">({{ searchTerm.doc_count }})</span>
+											{% for aggName in searchTerm.type_document.buckets %}
+												{% if loop.index <= 5 %}
+													{% if aggName is not empty %}
+														<li id="ssType">
+															<div class="aggName {{searchTerm.key}}" style="display: none">
+																{% set queryStringType =  app.request.query.all|merge({'type_document' : aggName.key|replace(' ', '_')})|url_encode %}
+																<a href="{{ path('ethnodoc_search') }}?{{ queryStringType }}">
+																	{{ aggName.key }}
+																</a>
+																<span class="facetCount">({{ aggName.doc_count }})</span>
+															</div>
+														</li>
+													{% endif %}
+												{% else %}
+													<li style="display: none">
+														<div class="aggName {{searchTerm.key}}" style="display: none">
+															{% set queryStringType =  app.request.query.all|merge({'type_document' : aggName.key|replace(' ', '_')})|url_encode %}
+															<a href="{{ path('ethnodoc_search') }}?{{ queryStringType }}">
+																{{ aggName.key }}
+															</a>
+															<span class="facetCount">({{ aggName.doc_count }})</span>
+														</div>
+													</li>
+												{% endif %}
+											{% endfor %}
+										{% else %}
+											{% if facetName == "country" %}
+												{{ searchTerm.key }}
+												<span class="facetCount">({{ searchTerm.doc_count }})</span>
+												{% for deptName in searchTerm.department.buckets%}
+													{% if loop.index <= 5 %}
+														<li>
+															<div class="deptName {{searchTerm.key}}" style="display: none">
+																{% set queryStringDept =  app.request.query.all|merge({'department' : deptName.key|replace(' ', '_')})|url_encode %}
+																<a search="?{{ queryStringDept }}" element = "{{deptName.key}}" href="{{ path('ethnodoc_search') }}?{{ queryStringDept }}">
+																	{{ deptName.key }}
+																</a>
+																<span class="facetCount">({{ deptName.doc_count }})</span>
+															</div>
+															{% if deptName.canton is not empty %}
+																{% for searchCantonTerm in deptName.canton.buckets %}
+																	{% if loop.index <= 5 %}
+																		<li>
+																			<div class="cantonName {{deptName.key}}" style="display: none">
+																				{% set queryStringCanton =  app.request.query.all|merge({'canton' : searchCantonTerm.key|replace(' ', '_')})|url_encode %}
+																				<a search="?{{ queryStringCanton }}" element = "{{searchCantonTerm.key}}" href="{{ path('ethnodoc_search') }}?{{ queryStringCanton }}">
+																					{{ searchCantonTerm.key }}
+																				</a>
+																				<span class="facetCount">({{ searchCantonTerm.doc_count }})</span>
+																			</div>
+																			{% for localityName in searchCantonTerm.locality.buckets %}
+																				{% if loop.index <= 5 %}
+																					{% if localityName is not empty %}
+																						<li>
+																							<div class="localityName {{searchCantonTerm.key}}" style="display: none">
+																								{% set queryStringLoc =  app.request.query.all|merge({'locality' : localityName.key|replace(' ', '_')})|url_encode %}
+																								<a href="{{ path('ethnodoc_search') }}?{{ queryStringLoc }}">
+																									{{ localityName.key }}
+																								</a>
+																								<span class="facetCount">({{ localityName.doc_count }})</span>
+																							</div>
+																						</li>
+																					{% endif %}
+																				{% else %}
+																					<li style="display: none">
+																						<div class="localityName {{searchCantonTerm.key}}" style="display: none">
+																							{% set queryStringLoc =  app.request.query.all|merge({'locality' : localityName.key|replace(' ', '_')})|url_encode %}
+																							<a href="{{ path('ethnodoc_search') }}?{{ queryStringLoc }}">
+																								{{ localityName.key }}
+																							</a>
+																							<span class="facetCount">({{ localityName.doc_count }})</span>
+																						</div>
+																					</li>
+																				{% endif %}
+																			{% endfor %}
+																		</li>
+																	{% else %}
+																		<li>
+																			<div class="cantonName {{deptName.key}}" style="display: none">
+																				{% set queryStringCanton =  app.request.query.all|merge({'canton' : searchCantonTerm.key|replace(' ', '_')})|url_encode %}
+																				<a href="{{ path('ethnodoc_search') }}?{{ queryStringCanton }}">
+																					{{ searchCantonTerm.key }}
+																				</a>
+																				<span class="facetCount">({{ searchCantonTerm.doc_count }})</span>
+																			</div>
+																		</li>
+																	{% endif %}
+																{% endfor %}
+															{% endif %}
+														</li>
+													{% else %}
+														<li style="display: none">
+															<div class="deptName {{searchTerm.key}}" style="display: none">
+																{% set queryStringDept =  app.request.query.all|merge({'department' : deptName.key|replace(' ', '_')})|url_encode %}
+																<a href="{{ path('ethnodoc_search') }}?{{ queryStringDept }}">
+																	{{ deptName.key }}
+																</a>
+																<span class="facetCount">({{ deptName.doc_count }})</span>
+															</div>
+														</li>
+													{% endif %}
+												{% endfor %}
+											{% elseif facetName == "millennium"%}
+												{{ searchTerm.key }}
+												<span class="facetCount">({{ searchTerm.doc_count }})</span>
+												{% for centName in searchTerm.century.buckets%}
+													{% if loop.index <= 5 %}
+														<li>
+															<div class="centName {{searchTerm.key}}" style="display: none">
+																{% set queryStringCent =  app.request.query.all|merge({'century' : centName.key|replace(' ', '_')})|url_encode %}
+																<a search="?{{ queryStringCent }}" element = "{{centName.key}}" href="{{ path('ethnodoc_search') }}?{{ queryStringCent }}">
+																	{{ centName.key }}
+																</a>
+																<span class="facetCount">({{ centName.doc_count }})</span>
+															</div>
+															{% if centName.decenie is not empty %}
+																{% for searchDecenieTerm in centName.decenie.buckets %}
+																	{% if loop.index <= 5 %}
+																		<li class="list-unstyled-decenie">
+																			<div class="decenieName {{centName.key}}" style="display: none">
+																				{% set queryStringDec =  app.request.query.all|merge({'decenie' : searchDecenieTerm.key|replace(' ', '_')})|url_encode %}
+																				<a search="?{{ queryStringDec }}" element = "{{searchDecenieTerm.key}}" href="{{ path('ethnodoc_search') }}?{{ queryStringDec }}">
+																					{{ searchDecenieTerm.key }}
+																				</a>
+																				<span class="facetCount">({{ searchDecenieTerm.doc_count }})</span>
+																			</div>
+																			{% for dateName in searchDecenieTerm.date.buckets %}
+																				{% if loop.index <= 5 %}
+																					{% if dateName is not empty %}
+																						<li>
+																							<div class="dateName {{searchDecenieTerm.key}}" style="display: none">
+																								{% set queryStringDate =  app.request.query.all|merge({'date' : dateName.key|replace(' ', '_')})|url_encode %}
+																								<a href="{{ path('ethnodoc_search') }}?{{ queryStringDate }}">
+																									{{ dateName.key }}
+																								</a>
+																								<span class="facetCount">({{ dateName.doc_count }})</span>
+																							</div>
+																						</li>
+																					{% endif %}
+																				{% else %}
+																					<li style="display: none">
+																						<div class="dateName {{searchDecenieTerm.key}}" style="display: none">
+																							{% set queryStringDate =  app.request.query.all|merge({'date' : dateName.key|replace(' ', '_')})|url_encode %}
+																							<a href="{{ path('ethnodoc_search') }}?{{ queryStringDate }}">
+																								{{ dateName.key }}
+																							</a>
+																							<span class="facetCount">({{ dateName.doc_count }})</span>
+																						</div>
+																					</li>
+																				{% endif %}
+																			{% endfor %}
+																		</li>
+																	{% else %}
+																		<li style="display: none">
+																			<div class="decenieName {{centName.key}}" style="display: none">
+																				{% set queryStringDec =  app.request.query.all|merge({'decenie' : searchDecenieTerm.key|replace(' ', '_')})|url_encode %}
+																				<a href="{{ path('ethnodoc_search') }}?{{ queryStringDec }}">
+																					{{ searchDecenieTerm.key }}
+																				</a>
+																				<span class="facetCount">({{ searchDecenieTerm.doc_count }})</span>
+																			</div>
+																		</li>
+
+																	{% endif %}
+																{% endfor %}
+															{% endif %}
+														</li>
+													{% else %}
+														<li style="display: none">
+															<div class="centName {{searchTerm.key}}" style="display: none">
+																{% set queryStringCent =  app.request.query.all|merge({'century' : centName.key|replace(' ', '_')})|url_encode %}
+																<a href="{{ path('ethnodoc_search') }}?{{ queryStringCent }}">
+																	{{ centName.key }}
+																</a>
+																<span class="facetCount">({{ centName.doc_count }})</span>
+															</div>
+														</li>
+													{% endif %}
+												{% endfor %}
+											{% else%}
+												{{ searchTerm.key }}
+												<span class="facetCount">({{ searchTerm.doc_count }})</span>
+												{% for class1Name in searchTerm.classement1.buckets%}
+													{% if loop.index <= 5 %}
+														<li>
+															<div class="class1Name {{searchTerm.key}}" style="display: none">
+																{% set queryStringClass1 =  app.request.query.all|merge({'classement1' : class1Name.key|replace(' ', '_')})|url_encode %}
+																<a search="?{{ queryStringClass1 }}" element = "{{class1Name.key}}" href="{{ path('ethnodoc_search') }}?{{ queryStringClass1 }}">
+																	{{ class1Name.key }}
+																</a>
+																<span class="facetCount">({{ class1Name.doc_count }})</span>
+															</div>
+															{% if class1Name.collection is not empty %}
+																{% for collName in class1Name.collection.buckets %}
+																	{% if loop.index <= 5 %}
+																		<li>
+																			<div class="collName {{class1Name.key}}" style="display: none">
+																				{% set queryStringColl =  app.request.query.all|merge({'collection' : collName.key|replace(' ', '_')})|url_encode %}
+																				<a href="{{ path('ethnodoc_search') }}?{{ queryStringColl }}">
+																					{{ collName.key }}
+																				</a>
+																				<span class="facetCount">({{ collName.doc_count }})</span>
+																			</div>
+																		</li>
+																	{% else %}
+																		<li style="display: none">
+																			<div class="collName {{class1Name.key}}" style="display: none">
+																				{% set queryStringColl =  app.request.query.all|merge({'collection' : collName.key|replace(' ', '_')})|url_encode %}
+																				<a href="{{ path('ethnodoc_search') }}?{{ queryStringColl }}">
+																					{{ collName.key }}
+																				</a>
+																				<span class="facetCount">({{ collName.doc_count }})</span>
+																			</div>
+																		</li>
+																	{% endif %}
+																{% endfor %}
+															{% endif %}
+														</li>
+													{% else %}
+														<li style="display: none">
+															<div class="class1Name {{searchTerm.key}}" style="display: none">
+																{% set queryStringClass1 =  app.request.query.all|merge({'classement1' : class1Name.key|replace(' ', '_')})|url_encode %}
+																<a href="{{ path('ethnodoc_search') }}?{{ queryStringClass1 }}">
+																	{{ class1Name.key }}
+																</a>
+																<span class="facetCount">({{ class1Name.doc_count }})</span>
+															</div>
+														</li>
+													{% endif %}
+												{% endfor %}
+											{% endif %}
+										{% endif %}
+									</a>
+								</li>
+							{% else %}
+								<li style="display: none">
+									<a id="{{ searchTerm.key }}" href="{{ path('ethnodoc_search') }}?{{ queryString }}">
+											{{ searchTerm.key }}
+											<span class="facetCount">({{ searchTerm.doc_count }})</span>
+									</a>
+								</li>
+							{% endif %}
+                        {% endfor %}
+                        {% if facet.buckets|length > 5 %}
+                            <li class="loadButton" id="{{ facetName }}_loadMore">{{ 'facet.action.load.more'|trans }}</li>
+                            <li class="loadButton" id="{{ facetName }}_loadLess" style="display: none">{{ 'facet.action.load.less'|trans }}</li>
+                        {% endif %}
+                    </ul>
+
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>

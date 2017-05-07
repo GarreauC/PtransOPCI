@@ -1,0 +1,27 @@
+ethnodoc_search:
+    path:     /search/{page}/{type}/{id}
+    defaults: { _controller: EthnoDocPublicationBundle:Search:search, type: null, id: null, page: 1 }
+
+ethnodoc_autocomplete:
+    path:       /autocomplete/{searchPhrase}
+    defaults: { _controller: EthnoDocPublicationBundle:Search:autocomplete, searchPhrase: null }
+
+home:
+    path:     /
+    defaults: { _controller: EthnoDocPublicationBundle:Page:home }
+
+register:
+    path:     /register
+    defaults: { _controller: EthnoDocPublicationBundle:Page:register }
+
+login:
+    path:     /login
+    defaults: { _controller: EthnoDocPublicationBundle:Login:login}
+
+disconnect:
+    path:     /disconnect
+    defaults: { _controller: EthnoDocPublicationBundle:Login:disconnect}
+
+create_user:
+    path:     /create_user
+    defaults: { _controller: EthnoDocPublicationBundle:CreateUser:create }

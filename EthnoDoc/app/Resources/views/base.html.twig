@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('libs/bootstrap-3.3.6/css/bootstrap.min.css') }}" type="text/css" />
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+			<link rel="stylesheet" href="{{ asset('css/suggestionsBox.css') }}" type="text/css" />
+            <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}" type="text/css" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+		<!-- connexion -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Connexion</h4>
+			  </div>
+			  <div class="modal-body">
+				  <form id="loginForm" class="form col-md-12 center-block" action="{{path('login')}}">
+					<div class="form-group">
+					  <input type="text" class="form-control input-lg" name="pseudo" placeholder="Pseudo">
+					</div>
+					<div class="form-group">
+					  <input type="password" class="form-control input-lg" name="pass" placeholder="Mot de passe">
+					</div>
+					<div class="form-group">
+					  <button class="btn btn-primary btn-lg btn-block">Se connecter</button>
+					  <span class="pull-right"><a href="{{path('register')}}">S'inscrire</a>
+					</div>
+				  </form>
+			  </div>
+			  <div class="modal-footer">
+				  <div class="col-md-12">
+				  <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+				  </div>	
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		
+        <div id="wrapper">
+            <!-- navbar -->
+            <nav class="navbar navbar-default navbar-fixed-top ">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a  href="{{ path('home') }}"><img src="{{ asset('img/ethnodoc.png') }}" alt="ethnodoc icon"/>&nbsp;&nbsp;EthnoDoc</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="{{ path('ethnodoc_search') }}" > Rechercher dans les archives</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#" data-toggle="modal" data-target="#myModal" id="loginLink">Connexion</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+            <!-- /navbar -->
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block footer %}
+        <div class="container" id="footer">
+            <div class="col-xs-2 col-md-2 col-lg-2 small">
+                <p>Site réalisé par Awa Camara et Dalila Nabaloum dans le cadre d'un PTRans - Polytech Nantes - 2016 </p>
+                <p>&copy; EthnoDoc</p>
+            </div>
+            <div class="col-xs-4 col-md-2 col-lg-2 col-xs-offset-1 col-md-offset-1 col-lg-offset-1">
+                <ul class="list-unstyled">
+                    <li><a href="http://opci-ethnodoc.fr/#contact">Contact</a></li>
+                    <li><a href="http://www.raddo-ethnodoc.com/page/a_propos_pc.php">A propos</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-4 col-md-2 col-lg-2 border-left">
+                <ul class="list-unstyled">
+                    <li><a href="http://opci-ethnodoc.fr/#centre_de_ressources_ethnodoc">Nos centres</a></li>
+                    <li><a href="http://opci-ethnodoc.fr/#opci_et_partenaires">Nos partenaires</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-4 col-md-2 col-lg-2 border-left">
+                <a href="https://twitter.com/OPCIEthnodoc"><img src="{{ asset('img/twitter_icon.png') }}" alt="twitter icon"></a>
+                <a href="https://www.facebook.com/OPCI.Ethnodoc/?fref=ts" target="_blank"><img src="{{ asset('img/fb_icon_small.png') }}" alt="facebook icon"></a>
+            </div>
+        </div>
+        {% endblock %}
+
+        {% block javascripts %}
+            <script type="text/javascript" src="{{ asset('js/jquery-1.12.3.min.js') }}"></script>
+            <!--<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script> -->
+            <script type="text/javascript" src="{{ asset('libs/bootstrap-3.3.6/js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/bloodhound.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/typeahead.bundle.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/typeahead.jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/handlebars-v3.0.1.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/validator.js') }}"></script>
+			<script type="text/javascript">
+			// Attach a submit handler to the form
+			$( "#loginForm" ).submit(function( event ) {
+			 
+			  // Stop form from submitting normally
+			  event.preventDefault();
+			 
+			  // Get some values from elements on the page:
+			  var form = $( this ),
+				pseudo = form.find( "input[name='pseudo']" ).val(),
+				pass = form.find( "input[name='pass']" ).val(),
+				url = form.attr( "action" );
+			 
+			  // Send the data using post
+			  var posting = $.post( url, { pseudo: pseudo, pass: pass } );
+			  posting.done(function( data ) {
+			  data = JSON.parse( data.replace(/&quot;/g,'"'));
+				if(data && data.isConnected){
+					$('#myModal').modal('hide');
+					$("#loginLink").attr("href","{{path('disconnect')}}");
+					$("#loginLink").attr("data-toggle","");
+					$("#loginLink").attr("data-target","");
+					$("#loginLink").text("Déconnexion");
+				}
+				
+			  });
+			});
+			</script>
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,206 @@
+@contentColor : #ffffff;
+@bootstrapGrey : #333;
+@lightgrey : #dcdcdc;
+
+
+/**
+ * Shadow mixins
+ */
+
+.Shadow{
+    box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.7);
+}
+
+.inShadow{
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7),
+    -1px 2px 20px rgba(255, 255, 255, 0.6) inset;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    padding-top: 60px;
+    height: 100%;
+}
+
+
+/**
+ * Wrapper
+ */
+
+#wrapper {
+    min-height: ~"calc(100% - 90px)";
+}
+
+
+/**
+ * Carousel
+ */
+
+#carousel{
+    padding: 1px;
+    img{
+        height: 570px;
+        width: auto;
+        text-align: center;
+        padding: 0px;
+    }
+}
+
+
+/**
+ * Navbar
+ */
+
+
+.navbar {
+
+    font-size : 11px;
+    li {
+        font-size: 1.3em;
+    }
+    .dropdown-menu {
+        font-size: 11px;
+    }
+    .brand {
+        padding-top: 10px;
+        color: @lightgrey;
+        img {
+            margin-top: 10px;
+        }
+    }
+}
+
+
+/**
+ * Footer
+ */
+
+#footer {
+    .small {
+        font-size: 10px;
+        text-align: left;
+    }
+    color: #dcdcdc;
+    background-color: @bootstrapGrey;
+    height: 90px;
+    bottom: 0px;
+    position: relative;
+    width: 100%;
+    padding-top: 10px;
+    text-align: center;
+    div {
+        height: 70px;
+        margin-bottom: 10px;
+        padding-top: 5px;
+        img {
+            margin: 2px;
+        }
+    }
+    a {
+        color: @lightgrey;
+    }
+    div.border-left {
+        border-left: solid 1px @lightgrey;
+    }
+}
+
+
+
+
+/**
+ * Page content
+ */
+
+#content {
+    background-color: @contentColor;
+    min-height: 100%;
+    padding-top: 20px;
+    .Shadow;
+}
+
+#resultNb {
+    padding-left: 40px;
+    padding-top: 10px;
+}
+
+.breadcrumb i {
+    margin-left: 3px;
+}
+
+#ariane {
+    margin-top: 10px;
+}
+
+.content-display {
+    margin-bottom: 20px;
+}
+
+.result-display {
+    min-height: 20px;
+    min-width: 50px;
+}
+
+.register {
+    text-align: center;
+}
+
+/**
+ * Pagination
+ */
+
+._nav {
+    text-align: center;
+    margin-bottom: 10px;
+    .selected-page {
+        background-color: #333 !important;
+    }
+    .dropdownPages {
+        height: 180px;
+        overflow: auto;
+    }
+    .dropdown-toggle {
+        color : white !important;
+    }
+}
+
+
+
+/**
+ * Facet menu
+ */
+#facetNav{
+    background-color: @contentColor;
+    min-height: 100%;
+    .inShadow;
+    #descriptors {
+        font-size : 0.81em;
+        padding-left: 0px;
+        span:hover {
+            cursor: pointer;
+        }
+    }
+    .facetName {
+        font-size: 1.2em;
+    }
+
+    .desc {
+        padding-left: 19px;
+    }
+
+    .facetCount {
+        color : dimgrey;
+    }
+
+    .loadButton {
+        color: #737373;
+    }
+
+    .loadButton:hover {
+        cursor: pointer;
+    }
+}
+
+

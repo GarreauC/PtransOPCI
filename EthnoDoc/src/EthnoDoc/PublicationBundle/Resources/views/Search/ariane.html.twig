@@ -1,0 +1,32 @@
+<div id="ariane">
+    {% if selected is not empty %}
+        <ol class="breadcrumb">
+            {% for key,selection in selected %}
+                <li>
+                    <!-- For each selected descriptor, make a link which excludes this selector -->
+                    {% set urlpath = "" %}
+                    {% set outerLoopIndex = loop.index %}
+                    {% for innerKey,innerSelection in selected %}
+                        {% if loop.index == 1 %}
+                            {% set urlpath = (urlpath)~"?" %}
+                        {% elseif loop.index != loop.last and (urlpath) != "?" or (loop.index == loop.last and outerLoopIndex == 1) %}
+                            {% set urlpath = (urlpath)~"&" %}
+                        {% endif %}
+                        {% if innerKey != key %}
+                            {% set urlpath = (urlpath)~(innerKey)~"="~(innerSelection|replace(' ', '_')) %}
+                        {% endif %}
+                    {% endfor %}
+                    <a href="{{ urlpath }}">
+                        {{ ('facet.descriptor.name.'~key)|trans }} :
+                        {% if key  == '_type' %}
+                            {{ ('facet.descriptor.description.'~selection)|trans }}
+                        {% else %}
+                            {{ selection }}
+                        {% endif %}
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+</div>

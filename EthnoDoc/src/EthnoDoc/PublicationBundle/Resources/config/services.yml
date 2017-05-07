@@ -1,0 +1,61 @@
+services:
+    ethno_doc_publication.faceter:
+        class: EthnoDoc\PublicationBundle\Services\Faceter\Faceter
+        arguments: [@fos_elastica.index.ethnodoc]
+
+    ethnodoc.publicationbundle.transformers.elastica.editedmusicalnote:
+        class: EthnoDoc\PublicationBundle\Transformer\ElasticaToEditedMusicalNoteTransformer
+        tags:
+            - { name: fos_elastica.elastica_to_editedNote_transformer, type: EditedMusicalNote, index: ethnodoc }
+        arguments: ['@doctrine', '', {  }]
+        calls:
+            - [setPropertyAccessor, ['@fos_elastica.property_accessor']]
+
+    ethnodoc.publicationbundle.transformers.elastica.noneditedmusicalnote:
+        class: EthnoDoc\PublicationBundle\Transformer\ElasticaToNonEditedMusicalNoteTransformer
+        tags:
+            - { name: fos_elastica.elastica_to_nonEditedNote_transformer, type: NonEditedMusicalNote, index: ethnodoc }
+        arguments: ['@doctrine', '', {  }]
+        calls:
+            - [setPropertyAccessor, ['@fos_elastica.property_accessor']]
+
+    ethnodoc.publicationbundle.transformers.elastica.spokenarchivenote:
+        class: EthnoDoc\PublicationBundle\Transformer\ElasticaToSpokenArchiveNoteTransformer
+        tags:
+            - { name: fos_elastica.elastica_to_spokenNote_transformer, type: SpokenArchiveNote, index: ethnodoc }
+        arguments: ['@doctrine', '', {  }]
+        calls:
+            - [setPropertyAccessor, ['@fos_elastica.property_accessor']]
+
+    ethnodoc.publicationbundle.transformers.elastica.handwrittennote:
+        class: EthnoDoc\PublicationBundle\Transformer\ElasticaToHandWrittenNoteTransformer
+        tags:
+            - { name: fos_elastica.elastica_to_handWrittenNote_transformer, type: HandWrittenNote, index: ethnodoc }
+        arguments: ['@doctrine', '', {  }]
+        calls:
+            - [setPropertyAccessor, ['@fos_elastica.property_accessor']]
+
+    ethnodoc.publicationbundle.transformers.elastica.recipenote:
+        class: EthnoDoc\PublicationBundle\Transformer\ElasticaToRecipeNoteTransformer
+        tags:
+            - { name: fos_elastica.elastica_to_recipeNote_transformer, type: RecipeNote, index: ethnodoc }
+        arguments: ['@doctrine', '', {  }]
+        calls:
+            - [setPropertyAccessor, ['@fos_elastica.property_accessor']]
+
+    ethnodoc.publicationbundle.transformers.elastica.movienote:
+        class: EthnoDoc\PublicationBundle\Transformer\ElasticaToMovieNoteTransformer
+        tags:
+            - { name: fos_elastica.elastica_to_movieNote_transformer, type: MovieNote, index: ethnodoc }
+        arguments: ['@doctrine', '', {  }]
+        calls:
+            - [setPropertyAccessor, ['@fos_elastica.property_accessor']]
+
+    ethnodoc.publicationbundle.transformers.elastica.picturenote:
+        class: EthnoDoc\PublicationBundle\Transformer\ElasticaToPictureNoteTransformer
+        tags:
+            - { name: fos_elastica.elastica_to_pictureNote_transformer, type: PictureNote, index: ethnodoc }
+        arguments: ['@doctrine', '', {  }]
+        calls:
+            - [setPropertyAccessor, ['@fos_elastica.property_accessor']]
+

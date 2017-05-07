@@ -1,0 +1,3 @@
+ethno_doc_publication:
+    resource: "@EthnoDocPublicationBundle/Resources/config/routing.yml"
+    prefix:   /

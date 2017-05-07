@@ -1,0 +1,36 @@
+{% set queryParams = app.request.query.all %}
+{% if results is not null %}
+    {% if results.results is defined %}
+        {% set dataResults = results.results %}
+    {% else %}
+        {% set dataResults = results %}
+    {% endif %}
+    {% for result in dataResults %}
+            {% if loop.first or loop.index % 5 == 0 %}
+                <div class="row">
+            {% endif %}
+            {% if result.data is defined %}
+            <div class="result-display col-xs-6 col-md-2 col-lg-2 result">
+                <a href="{{ path('ethnodoc_search', {'id' : result.data.id , 'type' : result.type }) }}?{{ queryParams|url_encode }}" class="thumbnail">
+                    {% if result.url is defined and result.url is not null %}
+                        {% set extension = result.url|split('.')|last %}
+                        {% if  extension == 'jpg' or extension == 'jpeg' %}
+                            <img src="{{ result.url }}" alt="{{ result.data.title }}"/>
+                        {% elseif extension == 'mp3' %}
+                            <div><i class="glyphicon glyphicon-music"></i></div>
+                        {% elseif extension == "mov" %}
+                            <div><i class="glyphicon glyphicon-film"></i></div>
+                        {% elseif extension == "pdf" %}
+                            <div><i class="glyphicon glyphicon-list-alt"></i></div>
+                        {% endif %}
+                    {% endif %}
+					<img src="http://www.gresy-sur-aix.fr/wp-content/uploads/2014/08/1-rueprincipale.jpg" alt="{{ result.data.title }}"/>
+                    <small id="note-title">{{ result.data.title }}</small>
+                </a>
+            </div>
+            {% endif %}
+            {% if loop.index % 5 == 0 or loop.last %}
+                </div>
+            {% endif %}
+    {% endfor %}
+{% endif %}

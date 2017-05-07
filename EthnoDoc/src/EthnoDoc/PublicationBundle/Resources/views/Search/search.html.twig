@@ -1,0 +1,57 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Recherche{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid" xmlns="http://www.w3.org/1999/html">
+        <div class="row">
+            {% set queryParams = app.request.query.all %}
+            {% block searchbar %}
+                {{ include("EthnoDocPublicationBundle:Search:facets.html.twig") }}
+            {%  endblock %}
+
+            <div id="content" class="col-md-9 col-xs-8 col-lg-10 ">
+                <!--search bar-->
+                <div class="row">
+                    {{ include('EthnoDocPublicationBundle:Search:resultNumber.html.twig') }}
+                    <!-- Search Form -->
+                    <div>
+                        <form id="searchForm" action="{{ path('ethnodoc_search') }}" method="get" {{ form_enctype(form) }} class="col-xs-8 pull-right form-inline">
+                            <div id="searchBar" class="col-xs-8 form-group">
+                                {{ form_widget(form.search, {'attr' : {'class' : 'typeahead form-control', 'placeholder' : 'Rechercher'} }) }}
+                            </div>
+
+                            <input type="submit" class="btn btn-default" value="{{ 'form.action.search'|trans }}">
+                        </form>
+
+                    </div><!-- ./search form -->
+                </div>
+                {% block ariane %}
+                    {{ include('EthnoDocPublicationBundle:Search:ariane.html.twig') }}
+                {% endblock %}
+                <hr />
+                <div class="col-xs-12 col-md-12 col-lg-12" >
+                    {% block searchResult %}
+                        {{ include("EthnoDocPublicationBundle:Search:results.html.twig") }}
+                    {% endblock %}
+                </div>
+                {% block paginator %}
+                    {%  include "EthnoDocPublicationBundle:Search:pagination.html.twig"  %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var homepath = "{{ path('ethnodoc_autocomplete') }}";
+        var searchpath = "{{ path('ethnodoc_search') }}";
+    </script>
+    <script type="text/javascript" src="{{ asset('js/searchBar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/facet.js') }}"></script>
+{% endblock %}

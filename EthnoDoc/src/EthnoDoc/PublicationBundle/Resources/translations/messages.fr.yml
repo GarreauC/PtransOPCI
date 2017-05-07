@@ -1,0 +1,98 @@
+
+form:
+    action:
+        search: Rechercher
+facet:
+    action:
+        refine: Affiner la recherche
+        load:
+            more: Charger plus...
+            less: Charger moins...
+        found_one: résultat trouvé
+        found_several: résultats trouvés
+        selection: Sélection
+    descriptor:
+        name:
+            _type: Type
+            culture: Culture
+            title: Titre
+            search: Recherche
+            language : Langage
+            date : Date
+            collection: Collection
+            country: Localité
+            decenie: Décennie
+            millennium: Date
+            century: Siècle
+            classement2: Collection
+            classement1: Collection
+            department: Département
+            canton: Canton
+            locality: Ville
+            type_document: Type
+        description:
+            NonEditedMusicalNote: Musiques non éditées
+            SpokenArchiveNote: Archives parlées
+            RecipeNote: Recettes de cuisine
+            IcoVideoGraphyNote: Iconographies
+            EditedMusicalNote: Musiques éditées
+            HandWrittenNote: Archives manuscrites
+note:
+    keys:
+        locality: Ville
+        decade: Décennie
+        publisher: Editeur
+        publisher_number: Numéro d'éditeur
+        survey: Enquête
+        #EditedMusicalNote
+        lead_in_couplet_f_r: Incipit du couplet (FR)
+        lead_in_refrain_f_r: Incipit du refrain (FR)
+        lead_in_couplet_v_o: Incipit du couplet (VO)
+        lead_in_refrain_v_o: Incipit du refrain (VO)
+        author_ancient: Auteur ancient
+        traditional_author: Auteur folklorique
+        traditional_publisher: Editeur folklorique
+        culture: Culture
+        instruments: Instrument(s)
+        publisher_ancient: Editeur ancient
+        language: Langage
+        coirault_theme: Thème Coirault
+        coirault_number: Côte Coirault
+        laforte_number: Côté LaForte
+        precotation_ethnodoc: Précôtation EthnoDoc
+        phonogram_title: Titre du phonogramme
+        #handwrittenNote
+        post_card_publisher: Editeur de la carte postale
+        post_card_publisher_number: Numéro d'éditeur de la carte postale
+        witness: Témoin
+        expression: Expression
+        collector: Collecteur
+        collectors: Collecteur(s)
+        collection: Collection
+        collections: Collection(s)
+        #other
+        interprets: Artiste(s)
+        keywords: Mots clés
+        uses_circumstances: Circonstances d'usage
+        function_uses: Fonctions
+        stocks: Fonds
+        type_document: Type de document
+        date: Date d'origine
+        lholder: Conservateur
+        lalocality: Ville
+        lecanton: Canton
+        ledepartment: Département
+        lacountry: Pays
+        color: Couleur
+        right: Droit
+        parner: Partenaire (s)
+        resolution: Résolution
+        consultation: Niveau de consultation
+        lacollection: Collection
+error:
+    browser_note_supported:
+        audio: Votre navigateur ne supporte pas l'élément Audio
+        pdf: Votre navigateur ne supporte pas l'élément pdf
+        mov: Votre navigateur ne supporte pas l'élément Vidéo
+    direct_access: Accéder directement à la ressource
+

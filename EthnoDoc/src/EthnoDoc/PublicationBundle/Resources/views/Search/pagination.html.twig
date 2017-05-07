@@ -1,0 +1,63 @@
+{% if results is not empty %}
+    <div class="btn-group _nav col-md-offset-4 col-xs-offset-4 col-lg-offset-4" role="group">
+
+        {% if page > 1 %}
+
+            {# first page #}
+            <a role="button" class="btn btn-default" href="{{ path('ethnodoc_search', {'page' : 1}) }}?{{ app.request.query.all|url_encode }}">&lsaquo;&lsaquo;</a>
+
+            {% if page > 2 %}
+                {% if page > 3 %}
+                    {# in between results dropdown #}
+                    <div class="btn-group dropup " role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                ...
+                                <span class="caret"></span>
+                            </a>
+                        </button>
+                        <ul class="dropdown-menu dropdownPages" role="menu">
+                            {% for nb in 2..(page - 2) %}
+                                <li><a href="{{ path('ethnodoc_search', {'page' : nb}) }}?{{ app.request.query.all|url_encode }}">{{ nb }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                {# previous page #}
+                <a role="button" class="btn btn-default" href="{{ path('ethnodoc_search', {'page' : page-1}) }}?{{ app.request.query.all|url_encode }}">&lsaquo;</a>
+            {% endif %}
+        {% endif %}
+
+        {# current page #}
+        <a role="button" class="btn btn-default selected-page" href="#">{{ page }}</a>
+
+        {% if page < nbPages-1 %}
+            {# next page #}
+            <a role="button" class="btn btn-default" href="{{ path('ethnodoc_search', {'page' : page + 1}) }}?{{ app.request.query.all|url_encode }}">&rsaquo;</a>
+
+            {# in between results dropdown #}
+            {% if (nbPages - page) > 2 %}
+                <div class="btn-group dropup" role="group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                            ...
+                            <span class="caret"></span>
+                        </a>
+                    </button>
+                    <ul class="dropdown-menu dropdownPages" role="menu">
+                        {% for nb in (page + 2)..nbPages-1 %}
+                            <li><a href="{{ path('ethnodoc_search', {'page' : nb}) }}?{{ app.request.query.all|url_encode }}">{{ nb }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {# last page #}
+        {% if page < nbPages %}
+            <a role="button" class="btn btn-default" href="{{ path('ethnodoc_search', {'page' : nbPages}) }}?{{ app.request.query.all|url_encode }}">&rsaquo;&rsaquo;</a>
+        {% endif %}
+    </div>
+
+{% endif %}

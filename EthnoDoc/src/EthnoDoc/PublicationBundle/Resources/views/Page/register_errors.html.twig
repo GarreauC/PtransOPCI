@@ -1,0 +1,92 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}S'abonner au réseau{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+         <div class="row">
+  	<div class="col-md-6 center">
+			<p class="help-block with-errors" id="perror">Le pseudo existe déjà dans notre base! </p>
+          <form class="form-horizontal" data-toggle="validator" action="" method="POST">
+          <fieldset>
+            <div id="legend">
+              <legend class="">S'inscrire</legend>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="pseudo">Pseudo</label>
+              <div class="controls">
+                <input type="text" id="username"required name="pseudo" placeholder="" class="form-control input-lg">
+              </div>
+            </div>
+         
+            <div class="control-group has-feedback" >
+              <label class="control-label" for="email">E-mail</label>
+              <div class="controls">
+                <input type="email" id="email" required name="email" placeholder="" class="form-control input-lg" data-error="Cet email est invalide">
+                <p class="help-block with-errors" >Veuillez saisir votre email</p>
+              </div>
+            </div>
+         
+            <div class="control-group has-feedback">
+              <label class="control-label" for="pass">Mot de passe</label>
+              <div class="controls">
+                <input type="password" id="password" required name="pass" placeholder="" class="form-control input-lg">
+                
+              </div>
+            </div>
+         
+            <div class="control-group has-feedback">
+              <label class="control-label" for="pass_confirm">Mot de passe (Confirmation)</label>
+              <div class="controls">
+                <input type="password" id="pass_confirm" required name="pass_confirm" placeholder="" class="form-control input-lg" data-match="#password" data-match-error="Les mots de passe sont différents">
+                <p class="help-block with-errors">Veuillez resaisir votre mot de passe</p>
+              </div>
+            </div>
+         
+            <div class="control-group">
+              <!-- Button -->
+              <div class="controls">
+                <button class="btn btn-success">S'inscrire</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+    
+    </div> 
+  </div>
+        <hr/>
+        <h2>Nous proposons plusieurs abonnements :</h2>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 register">
+                <div class="thumbnail">
+                    <i class="glyphicon glyphicon-euro"></i>
+                    <div class="caption">
+                        <h3>Abonnement ponctuel</h3>
+                        <h4>1€ / document consulté</h4>
+                        <p>Vous permet d'accéder à des ressources lorsque vous le souhaitez en étant débité sur votre compte directement</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 register">
+                <div class="thumbnail">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    <div class="caption">
+                        <h3>Abonnement mensuel</h3>
+                        <h4>30€ / mois</h4>
+                        <p>Vous permet d'accéder à un contenu éditorialisé choisi chaque mois en fonction de vos préférences pour vous faire découvrir notre base de données plus sereinement !</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 register">
+                <div class="thumbnail">
+                    <i class="glyphicon glyphicon-th"></i>
+                    <div class="caption">
+                        <h3>Abonnement Consultation centre d'archives</h3>
+                        <h4>500€ / mois</h4>
+                        <p>Permet à votre centre d'archives et à vos utilisateurs d'accéder à toutes les ressources de notre base de données dans vos centres ! </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
