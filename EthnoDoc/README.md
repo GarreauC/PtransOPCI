@@ -12,7 +12,7 @@ project installation :
 ```
 * then
 ```
-    $ git clone https://github.com/dalilanab/EthnoDoc.git
+    $ git clone https://github.com/GarreauC/PtransOPCI.git
     $ php composer.phar install
     $ php app/console doctrine:database:create
     $ php app/console doctrine:schema:update --force
