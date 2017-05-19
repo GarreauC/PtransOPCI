@@ -97,6 +97,68 @@ class EditedMusicalNote extends MusicalNote
      */
     private $decenie;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="publisher", type="string", length=255)
+     */
+    private $lapublisher;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="EthnoDoc\PublicationBundle\Entity\Publisher")
+     * @ORM\JoinColumn(name="publisher_id", referencedColumnName="publisher_id")
+     */
+    private $publisher;
+
+    /**
+     * Set lapublisher
+     *
+     * @param string $lapublisher
+     * @return EditedMusicalNote
+     */
+    public function setLapublisher($lapublisher)
+    {
+        $this->lapublisher = $lapublisher;
+
+        return $this;
+    }
+
+    /**
+     * Get lapublisher
+     *
+     * @return string 
+     */
+    public function getLapublisher()
+    {
+        return $this->lapublisher;
+    }
+
+
+
+    /**
+     * Set publisher
+     *
+     * @param \EthnoDoc\PublicationBundle\Entity\Publisher $publisher
+     * @return EditedMusicalNote
+     */
+    public function setPublisher(\EthnoDoc\PublicationBundle\Entity\Publisher $publisher = null)
+    {
+        $this->publisher = $publisher;
+
+        return $this;
+    }
+
+    /**
+     * Get publisher
+     *
+     * @return \EthnoDoc\PublicationBundle\Entity\Publisher 
+     */
+    public function getPublisher()
+    {
+        return $this->publisher;
+    }
+
     /**
      * Get id
      *

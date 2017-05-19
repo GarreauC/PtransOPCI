@@ -41,7 +41,7 @@ class SearchController extends Controller
 
         //get facet collection according to user's selection
         $facets = $faceter->getFacetCollection(
-            array('_type', 'country', 'millennium', 'classement2'), $faceter->getFilter($selectedFilter));
+            array('_type', 'country', 'millennium', 'classement2', 'classement_pub1'), $faceter->getFilter($selectedFilter));
 
         //Build Query
         $results = $faceter->getFacetSelection($selectedFilter, $page);

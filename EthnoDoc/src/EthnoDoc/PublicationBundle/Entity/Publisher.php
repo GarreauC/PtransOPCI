@@ -24,9 +24,9 @@ class Publisher
     /**
      * @var string
      *
-     * @ORM\Column(name="publisher", type="string", length=255)
+     * @ORM\Column(name="editeur", type="string", length=255)
      */
-    private $publisher;
+    private $editeur;
 	
 	/**
      * @var string
@@ -63,26 +63,26 @@ class Publisher
     }
 
     /**
-     * Set Publisher
+     * Set Editeur
      *
-     * @param string $Publisher
-     * @return Publisher
+     * @param string $editeur
+     * @return Editeur
      */
-    public function setPublisher($Publisher)
+    public function setEditeur($editeur)
     {
-        $this->Publisher = $Publisher;
+        $this->editeur = $editeur;
 
         return $this;
     }
 
     /**
-     * Get Publisher
+     * Get Editeur
      *
      * @return string 
      */
-    public function getPublisher()
+    public function getEditeur()
     {
-        return $this->Publisher;
+        return $this->editeur;
     }
 
     /**

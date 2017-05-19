@@ -193,7 +193,90 @@
 														</li>
 													{% endif %}
 												{% endfor %}
-											{% else%}
+
+
+											{% elseif facetName == "classement_pub1"%}
+												{{ searchTerm.key }}
+												<span class="facetCount">({{ searchTerm.doc_count }})</span>
+												{% for classpub2Name in searchTerm.classement_pub2.buckets%}
+													{% if loop.index <= 5 %}
+														<li>
+															<div class="classpub2Name {{searchTerm.key}}" style="display: none">
+																{% set queryStringClass_pub2 =  app.request.query.all|merge({'classement_pub2' : classpub2Name.key|replace(' ', '_')})|url_encode %}
+																<a search="?{{ queryStringClass_pub2 }}" element = "{{classpub2Name.key}}" href="{{ path('ethnodoc_search') }}?{{ queryStringClass_pub2 }}">
+																	{{ classpub2Name.key }}
+																</a>
+																<span class="facetCount">({{ classpub2Name.doc_count }})</span>
+															</div>
+															{% if classpub2Name.classement_pub3 is not empty %}
+																{% for classpub3Name in classpub2Name.classement_pub3.buckets %}
+																	{% if loop.index <= 5 %}
+																		<li>
+																			<div class="classpub3Name {{classpub2Name.key}}" style="display: none">
+																				{% set queryStringClass_pub3 =  app.request.query.all|merge({'classement_pub3' : classpub3Name.key|replace(' ', '_')})|url_encode %}
+																				<a href="{{ path('ethnodoc_search') }}?{{ queryStringClass_pub3 }}">
+																					{{ classpub3Name.key }}
+																				</a>
+																				<span class="facetCount">({{ classpub3Name.doc_count }})</span>
+																			</div>
+																			{% if classpub3Name.editeur is not empty %}
+
+																				{% for EditName in classpub3Name.editeur.buckets %}
+																					{% if loop.index <= 5 %}
+																						<li>
+																							<div class="EditName {{classpub3Name.key}}" style="display: none">
+																								{% set queryStringEdit =  app.request.query.all|merge({'queryStringEdit' : EditName.key|replace(' ', '_')})|url_encode %}
+																								<a href="{{ path('ethnodoc_search') }}?{{ queryStringEdit }}">
+																									{{ EditName.key }}
+																								</a>
+																								<span class="facetCount">({{ EditName.doc_count }})</span>
+																							</div>
+																						</li>
+																					{% else %}
+																						<li style="display: none">
+																							<div class="EditName {{classpub3Name.key}}" style="display: none">
+																								{% set queryStringEdit =  app.request.query.all|merge({'queryStringEdit' : EditName.key|replace(' ', '_')})|url_encode %}
+																								<a href="{{ path('ethnodoc_search') }}?{{ queryStringEdit }}">
+																									{{ EditName.key }}
+																								</a>
+																								<span class="facetCount">({{ EditName.doc_count }})</span>
+																							</div>
+																						</li>
+																					{% endif %}
+																				{% endfor %}
+																			{% endif %}
+
+
+
+																		</li>
+																	{% else %}
+																		<li style="display: none">
+																			<div class="classpub2Name {{classpub2Name.key}}" style="display: none">
+																				{% set queryStringClass_pub3 =  app.request.query.all|merge({'classement_pub3' : classpub2Name.key|replace(' ', '_')})|url_encode %}
+																				<a href="{{ path('ethnodoc_search') }}?{{ queryStringClass_pub3 }}">
+																					{{ classpub2Name.key }}
+																				</a>
+																				<span class="facetCount">({{ classpub2Name.doc_count }})</span>
+																			</div>
+																		</li>
+																	{% endif %}
+																{% endfor %}
+															{% endif %}
+														</li>
+													{% else %}
+															<li style="display: none">
+																<div class="classpub2Name {{searchTerm.key}}" style="display: none">
+																	{% set queryStringClasspub2 =  app.request.query.all|merge({'classement_pub2' : classpub2Name.key|replace(' ', '_')})|url_encode %}
+																	<a href="{{ path('ethnodoc_search') }}?{{ queryStringClasspub2 }}">
+																		{{ classpub2Name.key }}
+																	</a>
+																	<span class="facetCount">({{ classpub2Name.doc_count }})</span>
+																</div>
+															</li>
+														{% endif %}
+												{% endfor %}
+
+											{% elseif facetName == "classement2"%}
 												{{ searchTerm.key }}
 												<span class="facetCount">({{ searchTerm.doc_count }})</span>
 												{% for class1Name in searchTerm.classement1.buckets%}

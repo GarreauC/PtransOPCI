@@ -191,7 +191,7 @@ class HandWrittenNote extends Note
      * Set lapublisher
      *
      * @param string $lapublisher
-     * @return Note
+     * @return HandWrittenNote
      */
     public function setLapublisher($lapublisher)
     {

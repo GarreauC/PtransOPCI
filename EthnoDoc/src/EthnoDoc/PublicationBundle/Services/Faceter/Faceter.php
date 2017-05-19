@@ -83,6 +83,25 @@ class Faceter {
 			
 			$facet->addAggregation($siecle);
 		}
+
+		elseif ($facetName == "classement_pub1")
+		{
+			$edit_doc = new \Elastica\Aggregation\Terms('editeur');
+			$edit_doc->setField("editeur");
+			
+			$classpub1 = new \Elastica\Aggregation\Terms('classement_pub3');
+			$classpub1->setField("classement_pub3");
+			$classpub1->addAggregation($edit_doc);
+			
+			$classpub2 = new \Elastica\Aggregation\Terms('classement_pub2');
+			$classpub2->setField("classement_pub2");
+			$classpub2->addAggregation($classpub1);
+			
+			$facet = new \Elastica\Aggregation\Terms($facetName);
+			$facet->setField($facetName);
+			
+			$facet->addAggregation($classpub2);
+		}
 		else
 		{
 			$coll = new \Elastica\Aggregation\Terms('collection');

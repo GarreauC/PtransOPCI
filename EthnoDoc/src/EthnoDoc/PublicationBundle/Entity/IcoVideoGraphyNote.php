@@ -126,7 +126,7 @@ class IcoVideoGraphyNote extends Note
      * Set lapublisher
      *
      * @param string $lapublisher
-     * @return Note
+     * @return IcoVideoGraphyNote
      */
     public function setLapublisher($lapublisher)
     {

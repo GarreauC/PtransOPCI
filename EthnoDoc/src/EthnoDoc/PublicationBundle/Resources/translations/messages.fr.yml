@@ -26,6 +26,11 @@ facet:
             century: Siècle
             classement2: Collection
             classement1: Collection
+            classement_pub1: Editeur
+            classement_pub2: Editeur
+            classement_pub3: Editeur
+            publisher: Editeur
+            editeur: Editeur
             department: Département
             canton: Canton
             locality: Ville
@@ -89,6 +94,7 @@ note:
         resolution: Résolution
         consultation: Niveau de consultation
         lacollection: Collection
+        lapublisher: Editeur
 error:
     browser_note_supported:
         audio: Votre navigateur ne supporte pas l'élément Audio

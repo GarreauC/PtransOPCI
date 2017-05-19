@@ -194,17 +194,17 @@ body {
 	padding-top: 3px;
 }
 
-.aggName, .deptName, .centName, .class1Name
+.aggName, .deptName, .centName, .class1Name, .classpub2Name
 {
 	margin-left: 15px;
 }
 
-.cantonName, .decenieName, .collName
+.cantonName, .decenieName, .collName, .classpub3Name
 {
 	margin-left: 30px;
 }
 
-.localityName, .dateName
+.localityName, .dateName, .EditName
 {
 	margin-left: 45px;
 }
